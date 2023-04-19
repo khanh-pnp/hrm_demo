@@ -24,7 +24,7 @@ function* loginUser({ payload: { user, history } }) {
       );
       if (response) {
         yield put(loginSuccess(response));
-        history("/dashboard");
+        history("/pages-team");
       } else {
         yield put(apiError(response));
       }
@@ -36,7 +36,7 @@ function* loginUser({ payload: { user, history } }) {
       sessionStorage.setItem("authUser", JSON.stringify(response));
       if (response) {
         yield put(loginSuccess(response));
-        history("/dashboard");
+        history("/pages-team");
       } else {
         yield put(apiError(response));
       }
@@ -48,7 +48,7 @@ function* loginUser({ payload: { user, history } }) {
       sessionStorage.setItem("authUser", JSON.stringify(response));
       if (response.status === "success") {
         yield put(loginSuccess(response));
-        history("/dashboard");
+        history("/pages-team");
       } else {
         yield put(apiError(response));
       }

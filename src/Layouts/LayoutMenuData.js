@@ -35,78 +35,78 @@ const Navdata = () => {
   const [isLevel2, setIsLevel2] = useState(false);
 
   const menuItems = [
-    {
-      id: "dashboard",
-      label: "Dashboard",
-      icon: "ri-dashboard-2-line",
-      link: "/dashboard",
-    },
-    {
-      id: "order",
-      label: "All Orders",
-      icon: "ri-dashboard-2-line",
-      link: "/apps-ecommerce-orders",
-    },
-    {
-      id: "createOrder",
-      label: "Create Order",
-      icon: "ri-dashboard-2-line",
-      link: "/apps-ecommerce-create-order",
-    },
-    {
-      id: "orderDetails",
-      label: "Order Details",
-      icon: "ri-dashboard-2-line",
-      link: "/apps-ecommerce-order-details",
-    },
-    {
-      id: "invoice",
-      label: "Invoice Management",
-      icon: "ri-dashboard-2-line",
-      link: "/apps-invoice-management",
-    },
-    {
-      id: "job",
-      label: "Job Management",
-      icon: "ri-dashboard-2-line",
-      link: "/apps-job-management",
-    },
+    // {
+    //   id: "dashboard",
+    //   label: "Dashboard",
+    //   icon: "ri-dashboard-2-line",
+    //   link: "/dashboard",
+    // },
+    // {
+    //   id: "order",
+    //   label: "All Orders",
+    //   icon: "ri-dashboard-2-line",
+    //   link: "/apps-ecommerce-orders",
+    // },
+    // {
+    //   id: "createOrder",
+    //   label: "Create Order",
+    //   icon: "ri-dashboard-2-line",
+    //   link: "/apps-ecommerce-create-order",
+    // },
+    // {
+    //   id: "orderDetails",
+    //   label: "Order Details",
+    //   icon: "ri-dashboard-2-line",
+    //   link: "/apps-ecommerce-order-details",
+    // },
+    // {
+    //   id: "invoice",
+    //   label: "Invoice Management",
+    //   icon: "ri-dashboard-2-line",
+    //   link: "/apps-invoice-management",
+    // },
+    // {
+    //   id: "job",
+    //   label: "Job Management",
+    //   icon: "ri-dashboard-2-line",
+    //   link: "/apps-job-management",
+    // },
     {
       id: "team",
       label: "Team",
       icon: "ri-dashboard-2-line",
       link: "/pages-team",
     },
-    {
-      id: "products",
-      label: "Products",
-      icon: "ri-dashboard-2-line",
-      link: "/apps-ecommerce-products",
-    },
-    {
-      id: "productDetails",
-      label: "Product Details",
-      icon: "ri-dashboard-2-line",
-      link: "/apps-ecommerce-product-details",
-    },
-    {
-      id: "createProduct",
-      label: "Create Product",
-      icon: "ri-dashboard-2-line",
-      link: "/apps-ecommerce-add-product",
-    },
-    {
-      id: "customers",
-      label: "Customers",
-      icon: "ri-dashboard-2-line",
-      link: "/apps-ecommerce-customers",
-    },
-    {
-      id: "shoppingCart",
-      label: "Shopping Cart",
-      icon: "ri-dashboard-2-line",
-      link: "/apps-ecommerce-cart",
-    },
+    // {
+    //   id: "products",
+    //   label: "Products",
+    //   icon: "ri-dashboard-2-line",
+    //   link: "/apps-ecommerce-products",
+    // },
+    // {
+    //   id: "productDetails",
+    //   label: "Product Details",
+    //   icon: "ri-dashboard-2-line",
+    //   link: "/apps-ecommerce-product-details",
+    // },
+    // {
+    //   id: "createProduct",
+    //   label: "Create Product",
+    //   icon: "ri-dashboard-2-line",
+    //   link: "/apps-ecommerce-add-product",
+    // },
+    // {
+    //   id: "customers",
+    //   label: "Customers",
+    //   icon: "ri-dashboard-2-line",
+    //   link: "/apps-ecommerce-customers",
+    // },
+    // {
+    //   id: "shoppingCart",
+    //   label: "Shopping Cart",
+    //   icon: "ri-dashboard-2-line",
+    //   link: "/apps-ecommerce-cart",
+    // },
     //  ========= pages =========
     // {
     //     id: "authentication",

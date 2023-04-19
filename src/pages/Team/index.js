@@ -20,7 +20,6 @@ import {
   Row,
   UncontrolledDropdown,
   FormFeedback,
-  ModalHeader,
 } from "reactstrap";
 import BreadCrumb from "../../Components/Common/BreadCrumb";
 import DeleteModal from "../../Components/Common/DeleteModal";
@@ -37,6 +36,17 @@ import {
 } from "../../store/actions";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+
+const DATA = [
+  {
+    date: new Date().getTime(),
+    id: "1",
+    image: "/static/media/img-11.ee2350a5a6accfd99a8d.jpg",
+    state: "wear mask",
+    name: "Nancy Martino",
+    designation: "Dev",
+  },
+];
 
 const Team = () => {
   const dispatch = useDispatch();
@@ -146,14 +156,6 @@ const Team = () => {
     }
   }, []);
 
-  const favouriteBtn = (ele) => {
-    if (ele.closest("button").classList.contains("active")) {
-      ele.closest("button").classList.remove("active");
-    } else {
-      ele.closest("button").classList.add("active");
-    }
-  };
-
   const searchList = (e) => {
     let inputVal = e.toLowerCase();
 
@@ -232,9 +234,11 @@ const Team = () => {
     // enableReinitialize : use this flag when initial values needs to be changed
     enableReinitialize: true,
     initialValues: {
+      name: "",
       phoneNumber: "",
     },
     validationSchema: Yup.object({
+      name: Yup.number().required("Please enter name"),
       phoneNumber: Yup.number().required("Please enter phone number"),
     }),
     onSubmit: (values) => {
@@ -329,31 +333,13 @@ const Team = () => {
             <Col lg={12}>
               <div id="teamlist">
                 <Row className="team-list grid-view-filter">
-                  {(teamList || []).map((item, key) => (
+                  {(DATA || []).map((item, key) => (
                     <Col key={key}>
                       <Card className="team-box">
-                        <div className="team-cover">
-                          <img
-                            src={item.backgroundImg}
-                            alt=""
-                            className="img-fluid"
-                          />
-                        </div>
                         <CardBody className="p-4">
                           <Row className="align-items-center team-row">
                             <Col className="team-settings">
-                              <Row>
-                                <Col>
-                                  <div className="flex-shrink-0 me-2">
-                                    <button
-                                      type="button"
-                                      className="btn btn-light btn-icon rounded-circle btn-sm favourite-btn"
-                                      onClick={(e) => favouriteBtn(e.target)}
-                                    >
-                                      <i className="ri-star-fill fs-14"></i>
-                                    </button>
-                                  </div>
-                                </Col>
+                              <Row className="justify-content-end">
                                 <UncontrolledDropdown
                                   direction="start"
                                   className="col text-end"
@@ -363,7 +349,7 @@ const Team = () => {
                                     id="dropdownMenuLink2"
                                     role="button"
                                   >
-                                    <i className="ri-more-fill fs-17"></i>
+                                    <i className="ri-more-fill fs-17 text-dark"></i>
                                   </DropdownToggle>
                                   <DropdownMenu>
                                     <DropdownItem
@@ -388,15 +374,15 @@ const Team = () => {
                             </Col>
                             <Col lg={4} className="col">
                               <div className="team-profile-img">
-                                <div className="avatar-lg img-thumbnail rounded-circle flex-shrink-0">
+                                <div className="avatar-lg img-thumbnail flex-shrink-0">
                                   {item.userImage != null ? (
                                     <img
                                       src={item.userImage}
                                       alt=""
-                                      className="img-fluid d-block rounded-circle"
+                                      className="img-fluid d-block"
                                     />
                                   ) : (
-                                    <div className="avatar-title text-uppercase border rounded-circle bg-light text-primary">
+                                    <div className="avatar-title text-uppercase border bg-light text-primary">
                                       {item.name.charAt(0) +
                                         item.name
                                           .split(" ")
@@ -417,29 +403,17 @@ const Team = () => {
                                     <h5 className="fs-16 mb-1">{item.name}</h5>
                                   </Link>
                                   <p className="text-muted mb-0">
-                                    {item.designation}
+                                    {item?.designation}
+                                  </p>
+                                  <p className="text-muted mb-0">
+                                    Status: Available
                                   </p>
                                 </div>
                               </div>
                             </Col>
-                            <Col lg={4} className="col">
-                              <Row className="text-muted text-center">
-                                <Col
-                                  xs={6}
-                                  className="border-end border-end-dashed"
-                                >
-                                  <h5 className="mb-1">{item.projectCount}</h5>
-                                  <p className="text-muted mb-0">Projects</p>
-                                </Col>
-                                <Col xs={6}>
-                                  <h5 className="mb-1">{item.taskCount}</h5>
-                                  <p className="text-muted mb-0">Tasks</p>
-                                </Col>
-                              </Row>
-                            </Col>
                             <Col lg={2} className="col">
                               <div
-                                className="btn btn-light view-btn"
+                                className="btn btn-success view-btn"
                                 onClick={() => setIsModalSend(true)}
                               >
                                 Send
@@ -450,15 +424,6 @@ const Team = () => {
                       </Card>
                     </Col>
                   ))}
-
-                  <Col lg={12}>
-                    <div className="text-center mb-3">
-                      <Link to="#" className="text-success">
-                        <i className="mdi mdi-loading mdi-spin fs-20 align-middle me-2"></i>{" "}
-                        Load More{" "}
-                      </Link>
-                    </div>
-                  </Col>
                 </Row>
 
                 <div
@@ -479,80 +444,36 @@ const Team = () => {
                         >
                           <Row>
                             <Col lg={12}>
-                              <input
-                                type="hidden"
-                                id="memberid-input"
-                                className="form-control"
-                                defaultValue=""
-                              />
-                              <div className="px-1 pt-1">
-                                <div className="modal-team-cover position-relative mb-0 mt-n4 mx-n4 rounded-top overflow-hidden">
-                                  <img
-                                    src={smallImage9}
-                                    alt=""
-                                    id="cover-img"
-                                    className="img-fluid"
-                                  />
-
-                                  <div className="d-flex position-absolute start-0 end-0 top-0 p-3">
-                                    <div className="flex-grow-1">
-                                      <h5
-                                        className="modal-title text-white"
-                                        id="createMemberLabel"
-                                      >
-                                        {!isEdit
-                                          ? "Add New Members"
-                                          : "Edit Member"}
-                                      </h5>
-                                    </div>
-                                    <div className="flex-shrink-0">
-                                      <div className="d-flex gap-3 align-items-center">
-                                        <div>
-                                          <label
-                                            htmlFor="cover-image-input"
-                                            className="mb-0"
-                                            data-bs-toggle="tooltip"
-                                            data-bs-placement="top"
-                                            title="Select Cover Image"
-                                          >
-                                            <div className="avatar-xs">
-                                              <div className="avatar-title bg-light border rounded-circle text-muted cursor-pointer">
-                                                <i className="ri-image-fill"></i>
-                                              </div>
-                                            </div>
-                                          </label>
-                                          <input
-                                            className="form-control d-none"
-                                            defaultValue=""
-                                            id="cover-image-input"
-                                            type="file"
-                                            accept="image/png, image/gif, image/jpeg"
-                                          />
-                                        </div>
-                                        <button
-                                          type="button"
-                                          className="btn-close btn-close-white"
-                                          onClick={() => setModal(false)}
-                                          id="createMemberBtn-close"
-                                          data-bs-dismiss="modal"
-                                          aria-label="Close"
-                                        ></button>
-                                      </div>
-                                    </div>
-                                  </div>
+                              <div className="mb-2">
+                                <div className="d-flex justify-content-between mb-2">
+                                  <h5
+                                    className="modal-title"
+                                    id="createMemberLabel"
+                                  >
+                                    {!isEdit
+                                      ? "Add New Members"
+                                      : "Edit Member"}
+                                  </h5>
+                                  <button
+                                    type="button"
+                                    className="btn-close"
+                                    onClick={() => setModal(false)}
+                                    id="sendMessages-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                  ></button>
                                 </div>
-                              </div>
-                              <div className="text-center mb-4 mt-n5 pt-2">
-                                <div className="position-relative d-inline-block">
-                                  <div className="position-absolute bottom-0 end-0">
+                                <div className="position-relative d-flex justify-content-center">
+                                  <div className="position-absolute bottom-0">
                                     <label
                                       htmlFor="member-image-input"
                                       className="mb-0"
+                                      style={{ marginLeft: "60px" }}
                                       data-bs-toggle="tooltip"
                                       data-bs-placement="right"
                                       title="Select Member Image"
                                     >
-                                      <div className="avatar-xs">
+                                      <div className="avatar-xss">
                                         <div className="avatar-title bg-light border rounded-circle text-muted cursor-pointer">
                                           <i className="ri-image-fill"></i>
                                         </div>
@@ -566,8 +487,8 @@ const Team = () => {
                                       accept="image/png, image/gif, image/jpeg"
                                     />
                                   </div>
-                                  <div className="avatar-lg">
-                                    <div className="avatar-title bg-light rounded-circle">
+                                  <div className="avatar-md">
+                                    <div className="avatar-title bg-light">
                                       <img
                                         src={userdummyimg}
                                         alt=" "
@@ -695,68 +616,28 @@ const Team = () => {
                         >
                           <Row>
                             <Col lg={12}>
-                              <input
-                                type="hidden"
-                                id="memberid-input"
-                                className="form-control"
-                                defaultValue=""
-                              />
-                              <div className="px-1 pt-1">
-                                <div className="modal-team-cover position-relative mb-0 mt-n4 mx-n4 rounded-top overflow-hidden">
-                                  <img
-                                    src={smallImage9}
-                                    alt=""
-                                    id="cover-img"
-                                    className="img-fluid"
-                                  />
-
-                                  <div className="d-flex position-absolute end-0 end-0 top-0 p-3">
-                                    <div className="d-flex gap-3 align-items-center">
-                                      <div>
-                                        <label
-                                          htmlFor="cover-image-input"
-                                          className="mb-0"
-                                          data-bs-toggle="tooltip"
-                                          data-bs-placement="top"
-                                          title="Select Cover Image"
-                                        >
-                                          <div className="avatar-xs">
-                                            <div className="avatar-title bg-light border rounded-circle text-muted cursor-pointer">
-                                              <i className="ri-image-fill"></i>
-                                            </div>
-                                          </div>
-                                        </label>
-                                        <input
-                                          className="form-control d-none"
-                                          defaultValue=""
-                                          id="cover-image-input"
-                                          type="file"
-                                          accept="image/png, image/gif, image/jpeg"
-                                        />
-                                      </div>
-                                      <button
-                                        type="button"
-                                        className="btn-close btn-close-white"
-                                        onClick={toggleModalSend}
-                                        id="sendMessages-close"
-                                        data-bs-dismiss="modal"
-                                        aria-label="Close"
-                                      ></button>
-                                    </div>
-                                  </div>
+                              <div className="mb-2">
+                                <div className="d-flex justify-content-end mb-2">
+                                  <button
+                                    type="button"
+                                    className="btn-close"
+                                    onClick={toggleModalSend}
+                                    id="sendMessages-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                  ></button>
                                 </div>
-                              </div>
-                              <div className="text-center mb-4 mt-n5 pt-2">
-                                <div className="position-relative d-inline-block">
-                                  <div className="position-absolute bottom-0 end-0">
+                                <div className="position-relative d-flex justify-content-center">
+                                  <div className="position-absolute bottom-0">
                                     <label
                                       htmlFor="member-image-input"
                                       className="mb-0"
+                                      style={{ marginLeft: "60px" }}
                                       data-bs-toggle="tooltip"
                                       data-bs-placement="right"
                                       title="Select Member Image"
                                     >
-                                      <div className="avatar-xs">
+                                      <div className="avatar-xss">
                                         <div className="avatar-title bg-light border rounded-circle text-muted cursor-pointer">
                                           <i className="ri-image-fill"></i>
                                         </div>
@@ -770,8 +651,8 @@ const Team = () => {
                                       accept="image/png, image/gif, image/jpeg"
                                     />
                                   </div>
-                                  <div className="avatar-lg">
-                                    <div className="avatar-title bg-light rounded-circle">
+                                  <div className="avatar-md">
+                                    <div className="avatar-title bg-light">
                                       <img
                                         src={userdummyimg}
                                         alt=" "
@@ -781,6 +662,37 @@ const Team = () => {
                                     </div>
                                   </div>
                                 </div>
+                              </div>
+
+                              <div className="mb-3">
+                                <Label htmlFor="phone" className="form-label">
+                                  Name
+                                </Label>
+                                <Input
+                                  type="text"
+                                  className="form-control"
+                                  id="name"
+                                  placeholder="Enter name"
+                                  name="name"
+                                  validate={{
+                                    required: { value: true },
+                                  }}
+                                  onChange={validationSend.handleChange}
+                                  onBlur={validationSend.handleBlur}
+                                  value={validationSend.values.name || ""}
+                                  invalid={
+                                    validationSend.touched.name &&
+                                    validationSend.errors.name
+                                      ? true
+                                      : false
+                                  }
+                                />
+                                {validationSend.touched.name &&
+                                validationSend.errors.name ? (
+                                  <FormFeedback type="invalid">
+                                    {validationSend.errors.name}
+                                  </FormFeedback>
+                                ) : null}
                               </div>
 
                               <div className="mb-3">

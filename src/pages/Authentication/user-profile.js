@@ -29,7 +29,7 @@ import { editProfile, resetProfileFlag } from "../../store/actions";
 const UserProfile = () => {
   const dispatch = useDispatch();
 
-  const [email, setemail] = useState("admin@gmail.com");
+  const [email, setemail] = useState("admin@themesbrand.comm");
   const [idx, setidx] = useState("1");
 
   const [userName, setUserName] = useState("Admin");
