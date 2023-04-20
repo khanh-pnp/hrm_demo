@@ -42,18 +42,28 @@ function* loginUser({ payload: { user, history } }) {
       }
     } else if (process.env.REACT_APP_API_URL) {
       const response = yield call(postFakeLogin, {
-        email: user.email,
+        // email: user.email,
+        email: 'admin@themesbrand.com',
         password: user.password,
       });
-      sessionStorage.setItem("authUser", JSON.stringify(response));
-      if (response.status === "success") {
-        yield put(loginSuccess(response));
+      const res = {
+        ...response,
+        data: {
+          ...response.data,
+          email: 'admin@gmail.com',
+          first_name: 'Admin',
+        }
+      }
+      sessionStorage.setItem("authUser", JSON.stringify(res));
+      if (res.status === "success") {
+        yield put(loginSuccess(res));
         history("/pages-team");
       } else {
-        yield put(apiError(response));
+        yield put(apiError(res));
       }
     }
   } catch (error) {
+    console.log('error: ', error);
     yield put(apiError(error));
   }
 }
